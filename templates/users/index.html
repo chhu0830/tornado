@@ -1,0 +1,9 @@
+{% include ../layouts/header.html %}
+
+{% for user in users %}
+  {{ user['email'] }} <a href="/users/{{user['id']}}">show</a><br />
+{% end %}
+
+<a href="/users/new" class="btn btn-primary">註冊</a>
+
+{% include ../layouts/footer.html %}
