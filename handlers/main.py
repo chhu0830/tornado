@@ -1,5 +1,5 @@
-from tornado import web
+from handlers.application import RequestHandler
 
-class index(web.RequestHandler):
-    def get(self):
-        self.render('main/index.html')
+class index(RequestHandler):
+  def get(self):
+    self.render('main/index.html')

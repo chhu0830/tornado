@@ -33,5 +33,5 @@ class Base:
       value += "%s='%s'," % (d, data[d])
     value += "updated_at='%s';"% datetime.strftime(datetime.now(), '%Y-%m-%d %H:%M:%S')
     print(value)
-    return mysql("UPDATE %s SET %s WHERE id=%d", (self.table, value, id))
+    return mysql("UPDATE %s SET %s WHERE id=%s", (self.table, value, id))
 

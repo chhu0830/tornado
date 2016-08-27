@@ -1,7 +1,7 @@
 {% include ../layouts/header.html %}
   <form action="/users/{{user['id']}}" method="post">
     <input name="_method" type="hidden" value="patch">
-    {{ user['email'] }}
+    <input name="password" type="text" value={{user['encrypted_password']}}>
     <button type="submit">送出</button>
   </form>
 {% include ../layouts/footer.html %}

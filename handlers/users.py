@@ -1,7 +1,8 @@
 from models import Service
-from tornado import web, gen
+from tornado import gen
+from handlers.application import RequestHandler
 
-class users(web.RequestHandler):
+class users(RequestHandler):
   @gen.coroutine
   def get(self):
     users = yield from Service.User.all("ORDER BY id DESC")
@@ -18,17 +19,17 @@ class users(web.RequestHandler):
     yield from Service.User.create(data)
     self.redirect('/users')
 
-class new_user(web.RequestHandler):
+class new_user(RequestHandler):
   def get(self):
     self.render('users/new.html')
 
-class edit_user(web.RequestHandler):
+class edit_user(RequestHandler):
   @gen.coroutine
   def get(self, id):
     user = yield from Service.User.find(id)
     self.render('users/edit.html', user=user)
 
-class user(web.RequestHandler):
+class user(RequestHandler):
   @gen.coroutine
   def get(self, id):
     user = yield from Service.User.find(id)
@@ -36,9 +37,8 @@ class user(web.RequestHandler):
 
   @gen.coroutine
   def patch(self, id):
-    print("123")
     data=dict(
-      email="chhu0803@gmail.com"
+      encrypted_password = self.get_argument('password')
     )
-    yield from Service.User.update(data)
-    self.redirect("/users/%d", id)
+    yield from Service.User.update(id, data)
+    self.redirect("/users/%s" % id)
